@@ -1,6 +1,8 @@
 /**
  * Created by syuchan on 2016/07/14.
  */
+var urlPrefix = (("https:" == document.location.protocol) ? "https://" : "http://");
+var baseUrl = urlPrefix + location.hostname + ":" + location.port;
 
 function no_scroll(){
     var scroll_event = 'onwheel' in document ? 'wheel' : 'onmousewheel' in document ? 'mousewheel' : 'DOMMouseScroll';
@@ -38,8 +40,6 @@ function changePage(name) {
         $("#graph-area").css('visibility', 'hidden');
     }
 }
-
-var baseUrl = "http://localhost:26730/school";
 
 function getUnitSales(tabname) {
     var url = baseUrl + '/units?group=' + tabname;
