@@ -1,0 +1,96 @@
+﻿概要: 
+ - 今年(2016)学園祭のレジアプリ
+ - 夏休み1週間前(7/26)ほどに70%完成を目標
+
+デザイン:
+	スマートフォン, PC向けの作成
+	また簡略化のためViewPort等を使い制御する
+	
+	必要部品: 
+	 - Form:
+	    - 個数
+		- 年代
+		- 味
+	 - クラスの選択用　タブ　セレクタ　コンボボックス等
+	 - 販売個数表示用のTextBox
+	 - (概要表示欄)
+	
+	色彩:
+	 - R149 G219 B129 | #95DB81
+	 - R129 G219 B155 | #81DB9B
+	 - R129 G219 B200 | #81DBC8
+	 - R129 G194 B219 | #81C2DB
+	 - R129 G149 B219 | #8195DB
+	 - R155 G129 B219 | #9B81DB
+	 - R200 G129 B219 | #C881DB
+	 - R219 G129 B194 | #DB81C2
+	 - R219 G129 B149 | #DB8195
+	 - R219 G155 B129 | #DB9B81
+	 - R219 G200 B129 | #DBC881
+	 
+	 構成:
+	  メイン: ページ概要表示欄
+		クラス別: 販売個数や概要, 店の位置など
+		管理用: クラス別に加えてFormの入力を実装する
+	 
+JavaScript:
+	REST API準拠で実装されたサーバーに対してRequestを送ることで受け側鯖が処理をする
+	またjQueryを用いたページ遷移等行う場合はjsを分ける
+	
+	構成:
+	 - main.js: ページ遷移用関数を主に実装する, 初期化等の処理もこれに記述する
+	 - send.js: 受け側鯖へのRequestを実装する, 煩雑にならぬよう定数をうまく使うこと
+	 - util.js: main, sendの共通処理を記述
+	 
+	コーディング規約: 
+	 - 関数名はスネークケース(sendRequest)で記述する
+	 - 定数は__を先頭に, すべての文字を大文字にする
+	 - 関数名, 引数名はわかりやすいものにすること, 一時使用変数に関してはこの限りではない
+
+Java:
+	受け鯖担当, Spark Framework, MySQL JDBCを利用してClientとSQLの橋渡しをする
+	
+	細かいこと決まってないので後で
+	
+	実装:
+	 /school/units:
+		GET:
+			Description: group　の合計購入個数を返す
+			Param:
+				callback: 関数名 | string | Not Request
+				group   : クラス名 | string
+			Return:
+				JSONP: { Units: sum(integer)　};
+			Status:
+				200: 成功
+				400: 失敗
+		POST:
+			Description: groupの購入を追加
+			Param:
+				group: クラス名 | string
+				units: 個数   | integer
+				age  : 年代   | integer | Not Request
+				taste: 味     | string  | Not Request
+			Status:
+				200: 成功
+				400: 失敗
+	/school/units/del:
+		POST:
+			Description: groupの最後の購入を削除
+			Param:
+				group: クラス名 | string
+			Status:
+				200: 成功
+				400: 失敗
+				
+SQL:
+	database: school
+	table: 
+		name: クラス名にする
+		column:
+			ID   : int, auto increament
+			Time : TimeStamp
+			Units: int, not null
+			age  : int
+			taste: text
+			primary key: ID

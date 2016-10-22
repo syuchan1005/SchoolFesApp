@@ -1,0 +1,35 @@
+.overlay {
+    height: 100%;
+    width: 20%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: rgb(25, 25, 25);
+    overflow-x: hidden;
+}
+
+.overlay a {
+    padding: 8px;
+    text-decoration: none;
+    font-size: 60px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.overlay a:hover, .overlay a:focus {
+    color: #f1f1f1;
+    background-color: dimgray;
+}
+
+.overlay-content {
+    position: relative;
+    text-align: center;
+}
+
+.overlay-main-content {
+    position: relative;
+    height: 100%;
+    width: 80%;
+    margin-left: 21%;
+}

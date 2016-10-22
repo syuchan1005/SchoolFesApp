@@ -1,0 +1,40 @@
+<html lang="jp">
+<head>
+	<meta charset="UTF-8">
+	<title>School festival App</title>
+
+	<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+
+	<link rel="stylesheet" href="main.css">
+	<link rel="stylesheet" href="menu.css">
+
+	<script src="main.js"></script>
+
+	<script>
+		Json = new Array();
+		no_scroll();
+	</script>
+</head>
+
+<body>
+	<div class="overlay">
+		<span class="overlay-content"></span>
+	</div>
+
+	<div class="overlay-main-content">
+		<div class="content"></div>
+
+		<div class="unit-form">
+			<div class="unit-font">販売個数</div>
+			<input type="text" value="000" class="unit-view" readonly="readonly">
+			<span class="unit-font">個</span>
+		</div>
+
+		<canvas id="graph-area" height="450" width="600"></canvas>
+
+	</div>
+	<script>
+		pageInit();
+	</script>
+</body>
+</html>

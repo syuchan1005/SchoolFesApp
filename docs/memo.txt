@@ -1,0 +1,9 @@
+
+		<form id="MainForm" style="border: double; display: none;" class="unit-form">
+			<input id="TabName" type="hidden" value="">
+			<span class="unit-font">個数: </span> <input id="Unit" type="number" class="unit-font"> <br>
+			<div id="AgeField"> <span class="unit-font">年代: </span> <input id="Age" type="number" class="unit-font"> </div>
+			<div id="TasteField"> <span class="unit-font">味 　:</span> <select id="Taste" class="unit-font"> </select> </div>
+			<input type="button" value="送信" class="unit-font">
+			<input type="button" value="削除" class="unit-font">
+		</form>

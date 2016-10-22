@@ -1,0 +1,39 @@
+{
+  "tabs": [
+    {
+      "name": "Top",
+      "description": "これは学園祭用テストページです。<br>適当？気にしない",
+      "age": false,
+      "taste": false
+    },
+    {
+      "name": "2A",
+      "description": "商品: わたあめ",
+      "age": false,
+      "taste": false
+    },
+    {
+      "name": "2B",
+      "description": "商品: りんご飴",
+      "age": false,
+      "taste": false
+    },
+    {
+      "name": "2C",
+      "description": "商品: ポップコーン",
+      "age": true,
+      "taste": true,
+      "tastes": [
+        "塩",
+        "キャラメル",
+        "なんか"
+      ]
+    },
+    {
+      "name": "2D",
+      "description": "商品: ベビーカステラ",
+      "age": true,
+      "taste": false
+    }
+  ]
+}
