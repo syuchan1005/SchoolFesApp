@@ -1,0 +1,41 @@
+#Units {
+    height: 650px;
+    margin-bottom: 30px;
+}
+
+#unit {
+    width: 50%;
+    height: 130px;
+    font-size: 130px;
+    text-align: right;
+}
+
+.keyPad {
+    width: 125px;
+    height: 125px;
+}
+
+.keyPad#zero {
+    width: 255px;
+}
+
+#Age {
+    height: 270px;
+    margin-bottom: 30px;
+}
+
+.ageSelect {
+    width: 125px;
+    height: 125px;
+}
+
+.tasteSelect {
+    width: 125px;
+    height: 125px;
+    margin-bottom: 30px;
+}
+
+#submit {
+    width: 125px;
+    height: 125px;
+}

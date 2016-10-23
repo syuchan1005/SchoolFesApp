@@ -1,17 +1,11 @@
 /**
  * Created by syuchan on 2016/07/14.
  */
-var urlPrefix = (("https:" == document.location.protocol) ? "https://" : "http://");
-var baseUrl = urlPrefix + location.hostname + ":" + location.port;
-
-function no_scroll(){
-    var scroll_event = 'onwheel' in document ? 'wheel' : 'onmousewheel' in document ? 'mousewheel' : 'DOMMouseScroll';
-    $(document).on(scroll_event,function(e){e.preventDefault();});
-    $(document).on('touchmove.noScroll', function(e) {e.preventDefault();});
-}
+var baseUrl = document.location.protocol + "//" + location.hostname + ":" + location.port + location.pathname;
+var Json = new Array();
 
 function pageInit() {
-    $.getJSON('main.json', function (data) {
+    $.getJSON('resources/main.json', function (data) {
         $(data.tabs).each(function () {
             var name = this.name;
             Json[name] = this;
@@ -42,47 +36,13 @@ function changePage(name) {
 }
 
 function getUnitSales(tabname) {
-    var url = baseUrl + '/units?group=' + tabname;
-    return HTMLGet(url, function (json) {
-        console.info(json.Units);
-        $(".unit-view").val(('000' + json.Units).slice(-4));
-    });
-}
-/*
-function setUnitSales() {
-    var form = document.forms.MainForm;
-    var tab = form.TabName.value;
-    if(form.Unit.value <= 0) return;
-    var url = baseUrl + '/units?group=' + tab
-        + "&units=" + form.Unit.value;
-    if(Saves[tab].age == true) url += "&age=" + form.Age.value;
-    if(Saves[tab].taste == true) {
-        var select = form.Taste;
-        url += "&taste=" + select.options[select.selectedIndex].text;
-    }
-    HTMLPost(url);
-}
-
-function deleteLastUnit() {
-    var tab = document.forms.MainForm.TabName.value;
-    var url = baseUrl + "/units/del?group=" + tab;
-    console.log(url);
-    HTMLPost(url);
-}
-*/
-
-function HTMLGet(url, func) {
     $.ajax({
         type: 'GET',
-        url: url,
+        url: baseUrl + '/units?group=' + tabname,
         dataType: "jsonp",
-        success: func
-    });
-}
-
-function HTMLPost(url) {
-    $.ajax({
-        type: 'POST',
-        url: url
+        success: function (json) {
+            console.info(json.Units);
+            $(".unit-view").val(('000' + json.Units).slice(-4));
+        }
     });
 }
