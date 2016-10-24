@@ -27,12 +27,16 @@
 .ageSelect {
     width: 125px;
     height: 125px;
+    border: solid;
+    border-color: #818181;
 }
 
 .tasteSelect {
     width: 125px;
     height: 125px;
     margin-bottom: 30px;
+    border: solid;
+    border-color: #818181;
 }
 
 #submit {

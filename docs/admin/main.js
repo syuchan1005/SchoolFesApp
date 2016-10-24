@@ -20,12 +20,19 @@ hash = location.hash.substring(1);
 $.when(
     $.getJSON('./../resources/main.json', function (data) {
         $(data.tabs).each(function () {
-            if (this.name == hash) {
-                pageObject = this;
-            }
-        });
+            if (this.name == hash) pageObject = this;
+        })
     })
 ).done(function () {
+    init();
+});
+
+function init() {
+    if (pageObject == undefined) {
+        pageObject = new Object();
+        pageObject.age = false;
+        pageObject.taste = false;
+    }
     $('<a onclick="changePage(\'' + hash + '\')">' + hash + '</a>')
         .appendTo(".overlay-content");
     if (!pageObject.age) {
@@ -43,14 +50,16 @@ $.when(
     } else {
         tasteForm.style.display = "none";
     }
-});
 
-for (var i = 0; i < keyPadButtons.length; i++) {
-    keyPadButtons[i].addEventListener("click", selectKeyPad, false);
-}
+    for (var i = 0; i < keyPadButtons.length; i++) {
+        keyPadButtons[i].addEventListener("click", selectKeyPad, false);
+    }
 
-for (var i = 0; i < ageButtons.length; i++) {
-    ageButtons[i].addEventListener("click", selectAge, false);
+    for (var i = 0; i < ageButtons.length; i++) {
+        ageButtons[i].addEventListener("click", selectAge, false);
+    }
+
+    document.getElementById("submit").addEventListener("click", selectSubmit, false);
 }
 
 function selectKeyPad(mouseEvent) {
@@ -64,17 +73,26 @@ function selectKeyPad(mouseEvent) {
 }
 
 function selectAge(mouseEvent) {
+    for (var i = 0; i < ageButtons.length; i++) {
+        ageButtons[i].style.borderColor = "#818181";
+    }
+    mouseEvent.srcElement.style.borderColor = "aqua";
     console.log(mouseEvent.srcElement.innerHTML);
 }
 
 function selectTaste(mouseEvent) {
+    for (var i = 0; i < tasteButtons.length; i++) {
+        tasteButtons[i].style.borderColor = "#818181";
+    }
+    mouseEvent.srcElement.style.borderColor = "aqua";
     console.log(mouseEvent.srcElement.innerHTML);
 }
 
-document.getElementById("submit")
-    .addEventListener("click", function (mouseEvent) {
-    console.log(mouseEvent.srcElement.value);
-});
+function selectSubmit(mouseEvent) {
+    var confirm = window.confirm("送信しますか？");
+    console.log(mouseEvent.srcElement.value + ":" + confirm);
+}
+
 
 function setUnitSales() {
     var form = document.forms.MainForm;
