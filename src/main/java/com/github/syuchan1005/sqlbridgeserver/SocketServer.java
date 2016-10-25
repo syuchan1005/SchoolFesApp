@@ -15,7 +15,7 @@ public class SocketServer {
 
 	public SocketServer(Database database) {
 		SocketServer.database = database;
-		staticFileLocation("/public");
+		staticFileLocation("/docs");
 		webSocket("/web", WebSocketHandler.class);
 		webSocketIdleTimeoutMillis(300000); // 5min
 		init();

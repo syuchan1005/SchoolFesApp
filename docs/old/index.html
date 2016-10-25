@@ -1,0 +1,35 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>SchoolFes</title>
+        <link rel="stylesheet" type="text/css" href="main.css">
+        <script src="test/lib/jquery.min.js"></script>
+        <script src="main.js"></script>
+    </head>
+
+    <body>
+        <h1 class="title">学校用 会計アプリ</h1>
+
+        <div class="tabbox">
+            <p class="tabs">
+            </p>
+            <p class="tabcomp">
+            </p>
+
+            <div>販売個数</div>
+            <input id='UnitSales' type="text" readonly="readonly" value="0454"/>
+            <span>個</span>
+
+            <form id="MainForm" style="border: double; width: fit-content; display: none;">
+                <input id="TabName" type="hidden" value="">
+                <span>個数: </span> <input id="Unit" type="number"/> <br>
+                <div id="AgeField"> <span>年代: </span> <input id="Age" type="number"/> </div>
+                <div id="TasteField"> <span>味 　:</span> <select id="Taste"> </select> </div>
+                <input type="button" value="送信" onclick="setUnitSales()">
+                <input type="button" value="削除" onclick="deleteLastUnit()">
+            </form>
+        </div>
+
+        <script> tabInit; </script>
+    </body>
+</html>

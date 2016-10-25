@@ -7,54 +7,38 @@
 
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 
-		<link rel="stylesheet" href="main.css">
 		<link rel="stylesheet" href="../main.css">
-		<link rel="stylesheet" href="../menu.css">
+		<link rel="stylesheet" href="main.css">
 	</head>
 
 	<body>
-		<div class="overlay">
-			<div class="overlay-content"></div>
-		</div>
-
-		<div class="overlay-main-content">
+		<section>
 			<div id="Units">
-				<div>個数</div>
-				<input type="text" id="unit" readonly="readonly">
-				<div id="tenKey">
-					<button class="keyPad">7</button>
-					<button class="keyPad">8</button>
-					<button class="keyPad">9</button>
-					<br>
-					<button class="keyPad">4</button>
-					<button class="keyPad">5</button>
-					<button class="keyPad">6</button>
-					<br>
-					<button class="keyPad">1</button>
-					<button class="keyPad">2</button>
-					<button class="keyPad">3</button>
-					<br>
-					<button class="keyPad" id="zero">0</button>
-					<button class="keyPad"><</button>
-				</div>
+				<div class="sub" id="test">個数</div>
+				<input type="tel" id="unit"/>
 			</div>
 			<div id="Age">
-				<div>年代</div>
-				<button class="ageSelect">10代以下</button>
-				<button class="ageSelect">10代</button>
-				<button class="ageSelect">20代</button>
-				<button class="ageSelect">30代</button>
-				<br>
-				<button class="ageSelect">40代</button>
-				<button class="ageSelect">50代</button>
-				<button class="ageSelect">60代</button>
-				<button class="ageSelect">70代以上</button>
+				<div class="sub">年代</div>
+				<select id="ageSelect" name="age">
+					<option id="zero">0</option>
+					<option>10以下</option>
+					<option>20</option>
+					<option>30</option>
+					<option>40</option>
+					<option>50</option>
+					<option>60</option>
+					<option>60以上</option>
+				</select>
 			</div>
 			<div id="Taste">
-				<div>味</div>
+				<div class="sub">味</div>
+				<select id="tasteSelect" name="taste">
+
+				</select>
 			</div>
 			<input type="button" id="submit" value="送信">
-		</div>
+		</section>
+
+		<script src="main.js"></script>
 	</body>
-	<script src="main.js"></script>
 </html>

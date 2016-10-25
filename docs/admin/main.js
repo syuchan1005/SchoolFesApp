@@ -1,17 +1,15 @@
 /**
  * Created by syuchan on 2016/10/23.
  */
+var baseUrl = document.location.protocol + "//" + location.hostname + ":" + location.port + location.pathname;
 var pageObject;
 var hash;
 
 var unitForm = document.getElementById("unit");
-var keyPadButtons = document.getElementsByClassName("keyPad");
 
-var ageForm = document.getElementById("Age");
-var ageButtons = document.getElementsByClassName("ageSelect");
+var ageForm = document.getElementById("ageSelect");
 
-var tasteForm = document.getElementById("Taste");
-var tasteButtons;
+var tasteForm = document.getElementById("tasteSelect");
 
 if (location.hash == "") location.hash = "None";
 
@@ -28,91 +26,65 @@ $.when(
 });
 
 function init() {
+    $(window).on('touchmove.noScroll', function(e) {
+        e.preventDefault();
+    });
+
     if (pageObject == undefined) {
         pageObject = new Object();
         pageObject.age = false;
         pageObject.taste = false;
     }
-    $('<a onclick="changePage(\'' + hash + '\')">' + hash + '</a>')
-        .appendTo(".overlay-content");
+
+    unitForm.addEventListener("keypress", keyPressUnit, false);
+
     if (!pageObject.age) {
         ageForm.style.display = "none";
+    } else {
+        var element = document.getElementById("zero");
+        element.parentNode.removeChild(element);
     }
+
+    if (!pageObject.age) document.getElementById("Age").style.display = "none";
+
     if (pageObject.taste) {
         var tastes = pageObject.tastes;
-        for (var i = 0; i < tastes.length; i++) {
-            $('<button class="tasteSelect">' + tastes[i] + "</button>").appendTo(tasteForm);
-        }
-        tasteButtons = document.getElementsByClassName("tasteSelect");
-        for (var i = 0; i < tasteButtons.length; i++) {
-            tasteButtons[i].addEventListener("click", selectTaste, false);
+        for (var i in tastes) {
+            var element = document.createElement("option");
+            element.innerHTML = tastes[i];
+            tasteForm.appendChild(element);
         }
     } else {
-        tasteForm.style.display = "none";
-    }
-
-    for (var i = 0; i < keyPadButtons.length; i++) {
-        keyPadButtons[i].addEventListener("click", selectKeyPad, false);
-    }
-
-    for (var i = 0; i < ageButtons.length; i++) {
-        ageButtons[i].addEventListener("click", selectAge, false);
+        document.getElementById("Taste").style.display = "none";
     }
 
     document.getElementById("submit").addEventListener("click", selectSubmit, false);
 }
 
-function selectKeyPad(mouseEvent) {
-    var text = mouseEvent.srcElement.innerHTML;
-    var value = unitForm.value;
-    if (text == "<" || text == "&lt;") {
-        unitForm.value = value.substring(0, value.length - 1);
-    } else {
-        unitForm.value = value + text;
-    }
+function keyPressUnit(event) {
+    var number = event.which - 48;
+    if (0 <= number && number <= 9) return;
+    event.preventDefault();
 }
 
-function selectAge(mouseEvent) {
-    for (var i = 0; i < ageButtons.length; i++) {
-        ageButtons[i].style.borderColor = "#818181";
-    }
-    mouseEvent.srcElement.style.borderColor = "aqua";
-    console.log(mouseEvent.srcElement.innerHTML);
-}
-
-function selectTaste(mouseEvent) {
-    for (var i = 0; i < tasteButtons.length; i++) {
-        tasteButtons[i].style.borderColor = "#818181";
-    }
-    mouseEvent.srcElement.style.borderColor = "aqua";
-    console.log(mouseEvent.srcElement.innerHTML);
-}
 
 function selectSubmit(mouseEvent) {
-    var confirm = window.confirm("送信しますか？");
-    console.log(mouseEvent.srcElement.value + ":" + confirm);
-}
-
-
-function setUnitSales() {
-    var form = document.forms.MainForm;
-    var tab = form.TabName.value;
-    if (form.Unit.value <= 0) return;
-    var url = baseUrl + '/units?group=' + tab
-        + "&units=" + form.Unit.value;
-    if (Saves[tab].age == true) url += "&age=" + form.Age.value;
-    if (Saves[tab].taste == true) {
-        var select = form.Taste;
-        url += "&taste=" + select.options[select.selectedIndex].text;
+    if (window.confirm("送信しますか？")) {
+        setUnitSales(hash, unitForm.value, ageForm.value, tasteForm.value);
     }
+}
+
+
+function setUnitSales(tab, unit, age, taste) {
+    if (unit == undefined || unit == 0) return;
+    var url = baseUrl + '/units?group=' + tab + "&units=" + unit;
+    if (age != undefined) url += "&age=" + age;
+    if (taste != undefined) url += "&taste=" + taste;
     HTMLPost(url);
 }
 
-function deleteLastUnit() {
-    var tab = document.forms.MainForm.TabName.value;
-    var url = baseUrl + "/units/del?group=" + tab;
-    console.log(url);
-    HTMLPost(url);
+function deleteLastUnit(tab) {
+    HTMLPost(baseUrl + "/units/del?group=" + tab);
 }
 
 

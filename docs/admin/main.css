@@ -1,45 +1,22 @@
-#Units {
-    height: 650px;
-    margin-bottom: 30px;
+.sub {
+    font-size: 2.5rem;
 }
 
 #unit {
-    width: 50%;
-    height: 130px;
-    font-size: 130px;
-    text-align: right;
+    font-size: 5rem;
+    width: 50rem;
 }
 
-.keyPad {
-    width: 125px;
-    height: 125px;
+#ageSelect {
+    font-size: 5rem;
 }
 
-.keyPad#zero {
-    width: 255px;
-}
-
-#Age {
-    height: 270px;
-    margin-bottom: 30px;
-}
-
-.ageSelect {
-    width: 125px;
-    height: 125px;
-    border: solid;
-    border-color: #818181;
-}
-
-.tasteSelect {
-    width: 125px;
-    height: 125px;
-    margin-bottom: 30px;
-    border: solid;
-    border-color: #818181;
+#tasteSelect {
+    font-size: 5rem;
 }
 
 #submit {
-    width: 125px;
-    height: 125px;
+    margin-top: 8rem;
+    font-size: 5rem;
 }
+
