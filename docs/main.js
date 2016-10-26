@@ -1,7 +1,7 @@
 /**
  * Created by syuchan on 2016/07/14.
  */
-var baseUrl = document.location.protocol + "//" + location.hostname + ":" + location.port + location.pathname;
+var baseUrl = document.location.protocol + "//" + location.hostname + ":" + location.port;
 var Json = new Array();
 
 function pageInit() {
@@ -27,18 +27,16 @@ function changePage(name) {
     if (tab != "Top") {
         getUnitSales(tab);
         $(".unit-form").css('visibility', 'visible');
-        $("#graph-area").css('visibility', 'visible');
     } else {
         $(".unit-view").val('0000');
         $(".unit-form").css('visibility', 'hidden');
-        $("#graph-area").css('visibility', 'hidden');
     }
 }
 
 function getUnitSales(tabname) {
     $.ajax({
         type: 'GET',
-        url: baseUrl + '/units?group=' + tabname,
+        url: baseUrl + '/school/v1/units?group=' + tabname,
         dataType: "jsonp",
         success: function (json) {
             console.info(json.Units);

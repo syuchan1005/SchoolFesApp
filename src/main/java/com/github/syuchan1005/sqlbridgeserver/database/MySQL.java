@@ -33,9 +33,10 @@ public class MySQL implements Database {
 	}
 
 	@Override
-	public void addUnits(String tableName, String Units, String Age, String Taste) throws SQLException {
+	public int addUnits(String tableName, String Units, String Age, String Taste) throws SQLException {
 		createTable(tableName);
-		String sql = "INSERT INTO " + tableName + "(Units", value = Units;
+		String sql = "INSERT INTO " + tableName + "(Units";
+		String value = Units;
 		if(Age != null) {
 			sql += ", Age";
 			value += ", \"" + Age + "\"";
@@ -46,6 +47,9 @@ public class MySQL implements Database {
 		}
 		sql += ") VALUES (" + value + ");";
 		connection.createStatement().executeUpdate(sql);
+		ResultSet resultSet = connection.createStatement().executeQuery("SELECT LAST_INSERT_ID();");
+		resultSet.next();
+		return resultSet.getInt(1);
 	}
 
 	public static PreparedStatement DeleteUnits;
@@ -69,7 +73,7 @@ public class MySQL implements Database {
 	}
 
 	@Override
-	public void deleteLastUnit(String tableName) throws SQLException {
-		connection.createStatement().executeUpdate("DELETE FROM " + tableName + " ORDER BY ID DESC LIMIT 1;");
+	public void deleteUnit(String tableName, int id) throws SQLException {
+		connection.createStatement().executeUpdate("DELETE FROM " + tableName + " WHERE ID = " + id + ";");
 	}
 }

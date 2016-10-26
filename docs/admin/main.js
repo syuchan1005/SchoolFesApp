@@ -1,7 +1,7 @@
 /**
  * Created by syuchan on 2016/10/23.
  */
-var baseUrl = document.location.protocol + "//" + location.hostname + ":" + location.port + location.pathname;
+var baseUrl = document.location.protocol + "//" + location.hostname + ":" + location.port;
 var pageObject;
 var hash;
 
@@ -10,6 +10,8 @@ var unitForm = document.getElementById("unit");
 var ageForm = document.getElementById("ageSelect");
 
 var tasteForm = document.getElementById("tasteSelect");
+
+var listForm = document.getElementById("list");
 
 if (location.hash == "") location.hash = "None";
 
@@ -26,9 +28,6 @@ $.when(
 });
 
 function init() {
-    $(window).on('touchmove.noScroll', function(e) {
-        e.preventDefault();
-    });
 
     if (pageObject == undefined) {
         pageObject = new Object();
@@ -59,6 +58,8 @@ function init() {
     }
 
     document.getElementById("submit").addEventListener("click", selectSubmit, false);
+
+    document.getElementById("delete").addEventListener("click", selectDelete, false);
 }
 
 function keyPressUnit(event) {
@@ -69,22 +70,42 @@ function keyPressUnit(event) {
 
 
 function selectSubmit(mouseEvent) {
+    var unit = unitForm.value;
+    if (unit == undefined || unit == 0) return;
     if (window.confirm("送信しますか？")) {
-        setUnitSales(hash, unitForm.value, ageForm.value, tasteForm.value);
+        setUnitSales(hash, unit, ageForm.value, tasteForm.value);
+    }
+}
+
+function selectDelete(mouseEvent) {
+    var selection = listForm.value;
+    if (selection == undefined || selection == "") return;
+    selection = selection.split(":")[0];
+    if (window.confirm("削除しますか？")) {
+        deleteUnit(hash, selection);
     }
 }
 
 
 function setUnitSales(tab, unit, age, taste) {
-    if (unit == undefined || unit == 0) return;
-    var url = baseUrl + '/units?group=' + tab + "&units=" + unit;
+    var url = baseUrl + '/school/v1/units?group=' + tab + "&units=" + unit;
     if (age != undefined) url += "&age=" + age;
     if (taste != undefined) url += "&taste=" + taste;
-    HTMLPost(url);
+    HTMLPost(url, function (jsontxt) {
+        var json = JSON.parse(jsontxt);
+        var element = document.createElement("option");
+        element.innerHTML = json.ID + ":" + unit + ":" + age + ":" + taste;
+        element.setAttribute("id", json.ID);
+        listForm.appendChild(element);
+    });
 }
 
-function deleteLastUnit(tab) {
-    HTMLPost(baseUrl + "/units/del?group=" + tab);
+function deleteUnit(tab, id) {
+    HTMLPost(baseUrl + "/school/v1/units/del?group=" + tab + "&id=" + id,
+        function () {
+            var element = document.getElementById(id);
+            element.parentNode.removeChild(element);
+        });
 }
 
 
@@ -97,9 +118,10 @@ function HTMLGet(url, func) {
     });
 }
 
-function HTMLPost(url) {
+function HTMLPost(url, func) {
     $.ajax({
         type: 'POST',
-        url: url
+        url: url,
+        success: func
     });
 }

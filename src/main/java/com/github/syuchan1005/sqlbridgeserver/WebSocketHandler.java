@@ -46,11 +46,11 @@ public class WebSocketHandler {
 					session.getRemote().sendString("{\"status\": \"OK\", \"units\": \""+ unit +"\"}");
 					return;
 				case "POST":
-					database.addUnits(param.get("group"), param.get("units"), param.get("age"), param.get("taste"));
-					session.getRemote().sendString("{\"status\": \"OK\"}");
+					int id = database.addUnits(param.get("group"), param.get("units"), param.get("age"), param.get("taste"));
+					session.getRemote().sendString("{\"status\": \"OK\", \"ID\": " + id + "}");
 					return;
 				case "DELETE":
-					database.deleteLastUnit(param.get("group"));
+					database.deleteUnit(param.get("group"), Integer.parseInt(param.get("id")));
 					session.getRemote().sendString("{\"status\": \"OK\"}");
 					return;
 			}

@@ -28,21 +28,22 @@ public class Test implements Database {
 	}
 
 	@Override
-	public void addUnits(String tableName, String Units, String Age, String Taste) throws SQLException {
+	public int addUnits(String tableName, String Units, String Age, String Taste) throws SQLException {
 		createTable(tableName);
 		if (data.containsKey(tableName)) {
 			data.get(tableName).add(new DataSample(Integer.parseInt(Units), Age, Taste));
 		} else {
 			throw new SQLException("No table exits");
 		}
+		return data.get(tableName).size();
 	}
 
 	@Override
-	public void deleteLastUnit(String tableName) throws SQLException {
+	public void deleteUnit(String tableName, int id) throws SQLException {
 		createTable(tableName);
 		if (data.containsKey(tableName)) {
 			List<DataSample> dataSamples = data.get(tableName);
-			dataSamples.remove(dataSamples.size() - 1);
+			dataSamples.get(id - 1).clear();
 		} else {
 			throw new SQLException("No table exits");
 		}
@@ -57,6 +58,12 @@ public class Test implements Database {
 			Units = units;
 			Age = age;
 			Taste = taste;
+		}
+
+		public void clear() {
+			Units = -1;
+			Age = "-1";
+			Taste = "-1";
 		}
 
 		public int getUnits() {

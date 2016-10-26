@@ -2,18 +2,19 @@ body {
     background-color: lightgray;
 }
 
-.unit-view {
-    width: 90%;
-    font-size: 250px;
-    border-radius: 7px;
-    text-align: center;
-}
-
 .unit-form {
     border-radius: 7px;
     border: solid;
-    margin: 50px;
-    box-shadow:2px 2px #818181;
+    margin-top: 5rem;
+    width: 40rem;
+    box-shadow: 2px 2px #818181;
+}
+
+.unit-view {
+    width: 35rem;
+    font-size: 15rem;
+    border-radius: 7px;
+    text-align: center;
 }
 
 .unit-font {

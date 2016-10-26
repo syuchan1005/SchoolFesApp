@@ -10,7 +10,7 @@ public interface Database {
 
 	int sumUnits(String tableName) throws SQLException;
 
-	void addUnits(String tableName, String Units, String Age, String Taste) throws SQLException;
+	int addUnits(String tableName, String Units, String Age, String Taste) throws SQLException;
 
-	void deleteLastUnit(String tableName) throws SQLException;
+	void deleteUnit(String tableName, int id) throws SQLException;
 }
