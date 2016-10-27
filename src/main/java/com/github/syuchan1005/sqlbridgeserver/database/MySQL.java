@@ -11,7 +11,6 @@ import java.sql.SQLException;
  */
 public class MySQL implements Database {
 	public Connection connection;
-	public static PreparedStatement SumUnitsState;
 
 	public MySQL(String hostIP, int port, String DBName, String user, String pass) throws SQLException {
 		connection = DriverManager.getConnection("jdbc:mysql://"
@@ -62,14 +61,6 @@ public class MySQL implements Database {
 		DeleteUnits.setInt(2, ID);
 		DeleteUnits.executeUpdate();
 		DeleteUnits.clearParameters();
-	}
-
-	@Deprecated
-	public int getLastId(String tableName) throws SQLException {
-		createTable(tableName);
-		ResultSet resultSet = connection.createStatement().executeQuery("SELECT ID FROM " + tableName + " ORDER BY ID DESC LIMIT 1;");
-		resultSet.next();
-		return resultSet.getInt(1);
 	}
 
 	@Override

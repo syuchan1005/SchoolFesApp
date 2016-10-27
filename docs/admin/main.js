@@ -97,6 +97,7 @@ function setUnitSales(tab, unit, age, taste) {
         element.innerHTML = json.ID + ":" + unit + ":" + age + ":" + taste;
         element.setAttribute("id", json.ID);
         listForm.appendChild(element);
+        listForm
     });
 }
 

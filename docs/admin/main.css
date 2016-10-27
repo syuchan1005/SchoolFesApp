@@ -1,10 +1,14 @@
-input[type="button"],input[type="submit"] {
+input[type="button"], input[type="submit"] {
     -webkit-appearance: none;
     background-color: #f1f1f1;
 }
 
 .sub {
     font-size: 2.5rem;
+}
+
+#form {
+    float: left;
 }
 
 #unit {
@@ -21,17 +25,35 @@ input[type="button"],input[type="submit"] {
 }
 
 #submit {
-    margin-top: 8rem;
+    margin-top: 4rem;
     font-size: 5rem;
 }
 
 #list {
-    margin-top: 8rem;
     font-size: 4rem;
     width: 50rem;
+    height: 30rem;
+}
+
+#listForm {
+    float: left;
+    margin-left: 10rem;
 }
 
 #delete {
     margin-top: 1rem;
     font-size: 5rem;
+}
+
+@media screen and ( max-width: 1080px ) {
+    #list {
+        font-size: 4rem;
+        width: 50rem;
+        height: auto;
+    }
+
+    #listForm {
+        margin-top: 8rem;
+        margin-left: auto;
+    }
 }

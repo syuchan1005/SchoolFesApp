@@ -23,7 +23,18 @@ function changePage(name) {
          location.hash = name;
      }
      tab = location.hash.substring(1);
-    $(".content").html(Json[tab].description);
+    var content = document.createElement("div");
+    content.innerHTML = Json[tab].description;
+    if (Json[tab].taste) {
+        var list = document.createElement("ul");
+        for (var c in Json[tab].tastes) {
+            var element = document.createElement("li");
+            element.innerHTML = Json[tab].tastes[c];
+            list.appendChild(element)
+        }
+        content.appendChild(list);
+    }
+    $("#content").html(content);
     if (tab != "Top") {
         getUnitSales(tab);
         $(".unit-form").css('visibility', 'visible');
