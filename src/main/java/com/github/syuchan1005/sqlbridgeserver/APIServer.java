@@ -4,6 +4,9 @@ import com.github.syuchan1005.sqlbridgeserver.database.Database;
 import com.github.syuchan1005.sqlbridgeserver.database.Test;
 import spark.Spark;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
 
 /**
@@ -13,7 +16,7 @@ public class APIServer {
 	public APIServer(Database database) {
 		Spark.get("/school/v1/units", (req, res) -> {
 			String group = req.queryParams("group");
-			System.out.println("   GET: /school/units?group=" + group);
+			System.out.println(getTime() + "     GET: /school/units?group=" + group);
 			res.header("Content-Type", "application/json; charset=utf-8");
 			String callback = req.queryParams("callback");
 			callback = (callback != null) ? callback : "callback";
@@ -30,7 +33,7 @@ public class APIServer {
 			String callback = req.queryParams("callback");
 			callback = (callback != null) ? callback : "callback";
 			try {
-				System.out.println("  POST: /school/units?group=" + req.queryParams("group") +
+				System.out.println(getTime() + "    POST: /school/units?group=" + req.queryParams("group") +
 						"&units=" + req.queryParams("units") +
 						"&age=" + req.queryParams("age") +
 						"&taste=" + req.queryParams("taste"));
@@ -48,7 +51,7 @@ public class APIServer {
 
 		Spark.post("/school/v1/units/del", (req, res) -> {
 			try {
-				System.out.println("DELETE: /school/units?group=" + req.queryParams("group") + "&id=" + req.queryParams("id"));
+				System.out.println(getTime() + "  DELETE: /school/units?group=" + req.queryParams("group") + "&id=" + req.queryParams("id"));
 				database.deleteUnit(req.queryParams("group"), Integer.parseInt(req.queryParams("id")));
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -56,5 +59,11 @@ public class APIServer {
 			}
 			return "";
 		});
+	}
+
+	private static DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+	public static String getTime() {
+		Date date = new Date();
+		return dateFormat.format(date);
 	}
 }

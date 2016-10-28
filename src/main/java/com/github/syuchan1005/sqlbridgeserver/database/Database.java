@@ -13,4 +13,6 @@ public interface Database {
 	int addUnits(String tableName, String Units, String Age, String Taste) throws SQLException;
 
 	void deleteUnit(String tableName, int id) throws SQLException;
+
+	void timeoutCheck() throws SQLException;
 }

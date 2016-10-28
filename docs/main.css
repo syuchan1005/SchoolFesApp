@@ -8,6 +8,7 @@ body {
     margin-top: 5rem;
     width: 40rem;
     box-shadow: 2px 2px #818181;
+    visibility: hidden;
 }
 
 .unit-view {

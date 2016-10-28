@@ -50,7 +50,6 @@ function getUnitSales(tabname) {
         url: baseUrl + '/school/v1/units?group=' + tabname,
         dataType: "jsonp",
         success: function (json) {
-            console.info(json.Units);
             $(".unit-view").val(('000' + json.Units).slice(-4));
         }
     });

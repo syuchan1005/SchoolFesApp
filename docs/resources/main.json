@@ -26,12 +26,12 @@
       "tastes": [
         "塩",
         "キャラメル",
-        "なんか"
+        "バター醤油"
       ]
     },
     {
       "name": "2D",
-      "description": "商品: ベビーカステラ",
+      "description": "商品: 鈴カステラ",
       "age": true,
       "taste": false
     }

@@ -49,6 +49,11 @@ public class Test implements Database {
 		}
 	}
 
+	@Override
+	public void timeoutCheck() throws SQLException{
+		System.out.println("いらねぇ！");
+	}
+
 	public class DataSample {
 		private int Units;
 		private String Age;

@@ -28,11 +28,12 @@ $.when(
 });
 
 function init() {
-
+    pageObject.isJson = true;
     if (pageObject == undefined) {
         pageObject = new Object();
         pageObject.age = false;
         pageObject.taste = false;
+        pageObject.isJson = false;
     }
 
     unitForm.addEventListener("keypress", keyPressUnit, false);
@@ -72,7 +73,7 @@ function keyPressUnit(event) {
 function selectSubmit(mouseEvent) {
     var unit = unitForm.value;
     if (unit == undefined || unit == 0) return;
-    if (window.confirm("送信しますか？")) {
+    if (window.confirm("送信しますか？") && pageObject.isJson) {
         setUnitSales(hash, unit, ageForm.value, tasteForm.value);
     }
 }
@@ -81,7 +82,7 @@ function selectDelete(mouseEvent) {
     var selection = listForm.value;
     if (selection == undefined || selection == "") return;
     selection = selection.split(":")[0];
-    if (window.confirm("削除しますか？")) {
+    if (window.confirm("削除しますか？") && pageObject.isJson) {
         deleteUnit(hash, selection);
     }
 }
@@ -97,7 +98,6 @@ function setUnitSales(tab, unit, age, taste) {
         element.innerHTML = json.ID + ":" + unit + ":" + age + ":" + taste;
         element.setAttribute("id", json.ID);
         listForm.appendChild(element);
-        listForm
     });
 }
 
@@ -107,16 +107,6 @@ function deleteUnit(tab, id) {
             var element = document.getElementById(id);
             element.parentNode.removeChild(element);
         });
-}
-
-
-function HTMLGet(url, func) {
-    $.ajax({
-        type: 'GET',
-        url: url,
-        dataType: "jsonp",
-        success: func
-    });
 }
 
 function HTMLPost(url, func) {
